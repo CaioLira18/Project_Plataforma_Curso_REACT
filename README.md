@@ -29,39 +29,14 @@ To run the project locally, follow these steps:
 
 1. Clone this repository:  
    ```sh
-   git clone https://github.com/your-repository.git
+   https://github.com/CaioLira18/Project_Plataforma_Curso_REACT.git
    ```  
-2. Navigate to the backend directory:  
-   ```sh
-   cd backend
-   ```  
-3. Install dependencies:  
+2. Install dependencies:  
    ```sh
    npm install
-   ```  
-4. Configure the environment variables in the `.env` file:  
-   ```env
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASSWORD=your_password
-   DB_NAME=course_platform
-   JWT_SECRET=your_secret_key
-   ```  
-5. Run database migrations:  
+   ```
+3. Start the server:  
    ```sh
-   npx sequelize db:migrate
-   ```  
-6. Start the server:  
-   ```sh
-   npm start
-   ```  
-7. For the frontend, navigate to the directory:  
-   ```sh
-   cd frontend
-   ```  
-8. Install dependencies and start the frontend:  
-   ```sh
-   npm install
    npm start
    ```  
 
@@ -99,18 +74,13 @@ backend/
 
 The system implements a secure authentication method:  
 
-- **Registration**: Users can create an account with email and password  
-- **Login**: Secure authentication with JWT token generation  
-- **Password Encryption**: All passwords are securely stored using Bcrypt  
-- **Session Management**: JWT tokens manage user sessions  
-- **User Profile**: Displays purchased courses  
-
-## 📸 Screenshots (Coming Soon)  
+- **Registration**: Users can create an account with email and password (Implemented)
+- **Login**: Users can login an your account (implemented)
+- **Password Encryption**: All passwords are securely stored using Bcrypt (Implemented)
+- **User Profile**: Displays purchased courses  (Soon)
 
 ## © License  
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.  
 
 ---
-
-Let me know if you need any modifications! 🚀
