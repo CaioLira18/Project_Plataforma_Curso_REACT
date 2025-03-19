@@ -20,12 +20,21 @@
 }
 
 a {
-  font-weight: 500;
+  font-weight: 200;
   color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
+}
+
+.nav-right span {
+  font-size: 15px ;
+  color: #757575;
+}
+
+.nav-right span:hover {
+  border-bottom: 1px solid #757575;
 }
 
 h1 {
@@ -460,10 +469,10 @@ button:focus-visible {
 
 .single-item {
   width: 250px;
-  margin-left: 100px;
   border: 1px solid rgb(104, 104, 104);
   margin-top: 40px;
-  padding: 35px 16px;
+  padding: 35px;
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -817,4 +826,273 @@ button:focus-visible {
   text-align: center;
   padding: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Checkout */
+/* CheckOut */
+
+.checkout-container {
+  width: 100%;
+  padding: 40px;
+  background-color: rgba(75, 0, 130, 0.8);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.checkout-title{
+  font-size: 30px;
+}
+
+option {
+  color: #000;
+}
+
+.checkout-items-title{
+  font-size: 20px;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.checkout-container h2{
+  margin-top: 10px;
+}
+
+/* Estilos dos itens do carrinho */
+.checkout-items {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding-right: 30px;
+}
+
+.checkout-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 15px;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.checkout-item img {
+  width: 170px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 8px;
+}
+
+.checkout-item div {
+  flex: 1;
+}
+
+.checkout-item h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.checkout-item button {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: block;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.checkout-item button:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+/* Estilos do total do carrinho */
+.checkout-total {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.3em;
+  letter-spacing: 1px;
+}
+
+/* Estilos do formulário de checkout */
+.checkout-form {
+  padding-left: 30px;
+}
+
+.checkout-form h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+.checkout-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.checkout-form input, .checkout-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.checkout-form input::placeholder, .checkout-form select::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.checkout-form button {
+  width: 100%;
+  padding: 15px;
+  background: #8c0eb7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px;
+}
+
+.checkout-form button:hover {
+  background-color: #7a0c9e;
+  transform: translateY(-2px);
+}
+
+/* Order Confirmation */
+/* OrderConfirmation */
+/* Estilos principais do contêiner */
+.confirmation-container {
+  width: 100%;
+  padding: 40px;
+  margin: 0 auto;
+  background-color: rgba(75, 0, 130, 0.8);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+option {
+  color: black;
+}
+
+/* Estilos do cabeçalho de confirmação */
+.confirmation-header {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.confirmation-header i {
+  font-size: 60px;
+  color: rgb(172, 255, 172);
+  margin-bottom: 20px;
+}
+
+.confirmation-header h1 {
+  letter-spacing: 1px;
+}
+
+/* Estilos das seções */
+.confirmation-section {
+  text-align: left;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.confirmation-section h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+/* Estilos dos detalhes do pedido */
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Estilos dos itens do pedido */
+.order-items {
+  margin-top: 10px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.order-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 8px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.item-price {
+  font-weight: bold;
+}
+
+.order-total {
+  margin-top: 25px;
+  font-weight: bold;
+  font-size: 1.3em;
+  text-align: right;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  letter-spacing: 1px;
+}
+
+/* Estilos das ações de confirmação */
+.confirmation-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* Biblioteca */
+.biblioteca h1 {
+  margin-top: 20px;
+  font-size: 25px;
+  padding: 20px;
+}
+.biblioteca h1 a{
+  color: #3b5c79;
+  font-weight: bold;
 }

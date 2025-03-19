@@ -10,6 +10,9 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import Item from './pages/Item';
 import Items from './pages/Items';
+import Checkout from './components/Checkout';
+import OrderConfirmation from './pages/OrderConfirmation';
+import Biblioteca from './components/Biblioteca';
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -35,6 +38,9 @@ const App = () => {
         <Route path="/Profile" element={<Profile />} />
         <Route path="/items" element={<Item searchTerm={searchTerm} />} />
         <Route path="/items/:id" element={<Items />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/biblioteca" element={<Biblioteca />} />
+        <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
       </Routes>
       <Footer />
     </div>
