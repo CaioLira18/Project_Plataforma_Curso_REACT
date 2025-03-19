@@ -9,19 +9,18 @@ Welcome to the **Course Purchase Platform** repository, a modern system for acqu
 - **Express.js** - Framework for building APIs  
 - **MySQL** - Database for information storage  
 - **Bcrypt** - Password encryption for security  
-- **JWT (JSON Web Token)** - Secure user authentication  
 
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="React" width="40" height="40"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" alt="Node.js" width="40" height="40"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="MySQL" width="40" height="40"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="Express" width="40" height="40"/>  
 
 ## 🔧 Features  
 
-- 📚 Course catalog with an option to add to the cart  
-- 🛒 Cart management (adding and removing courses)  
-- 👤 **Secure authentication with user login and registration**  
-- 🔐 **Password encryption using Bcrypt**  
-- 🗂 **MySQL integration for data storage**  
-- 📖 User profile page displaying purchased courses  
-- 📱 Responsive design for all devices  
+- 📚 Course catalog with an option to add to the cart (Implemented)  
+- 🛒 Cart management (adding and removing courses)  (Soon)
+- 👤 **Secure authentication with user login and registration**  (implemented)
+- 🔐 **Password encryption using Bcrypt**  (implemented)
+- 🗂 **MySQL integration for data storage**  (Implemented)
+- 📖 User profile page displaying purchased courses (Soon)
+- 📱 Responsive design for all devices  (Soon)
 
 ## 🛠 Installation and Execution  
 
