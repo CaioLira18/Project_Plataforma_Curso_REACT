@@ -1,7 +1,3 @@
-Aqui está a versão em inglês do seu README:  
-
----
-
 # 🏫 Course Purchase Platform  
 
 Welcome to the **Course Purchase Platform** repository, a modern system for acquiring online courses. Developed with **React.js on the frontend and Node.js with Express on the backend**, this project provides an intuitive experience for user registration, cart management, and tracking purchased courses.  
