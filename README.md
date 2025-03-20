@@ -15,11 +15,11 @@ Welcome to the **Course Purchase Platform** repository, a modern system for acqu
 ## 🔧 Features  
 
 - 📚 Course catalog with an option to add to the cart (Implemented)  
-- 🛒 Cart management (adding and removing courses)  (Soon)
-- 👤 **Secure authentication with user login and registration**  (implemented)
-- 🔐 **Password encryption using Bcrypt**  (implemented)
-- 🗂 **MySQL integration for data storage**  (Implemented)
-- 📖 User profile page displaying purchased courses (Soon)
+- 🛒 Cart management (adding and removing courses)  (Implemented)
+- 👤 Secure authentication with user login and registration**  (implemented)
+- 🔐 Password encryption using Bcrypt  (implemented)
+- 🗂 MySQL integration for data storage  (Implemented)
+- 📖 User profile page displaying purchased courses (Implemented)
 - 📱 Responsive design for all devices  (Soon)
 
 ## 🛠 Installation and Execution  
