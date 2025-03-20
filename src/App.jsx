@@ -13,6 +13,7 @@ import Items from './pages/Items';
 import Checkout from './components/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Biblioteca from './components/Biblioteca';
+import Cursos from './pages/Cursos';
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -41,6 +42,8 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
         <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
+        <Route path="/curso/:courseId" element={<Cursos />} />
+
       </Routes>
       <Footer />
     </div>
