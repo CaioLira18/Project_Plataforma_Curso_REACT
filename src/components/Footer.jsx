@@ -7,7 +7,7 @@ const Footer = () => {
   <div className="container">
     <div className="footer-content">
       <div className="footer-logo">
-        <h2>Nome da Empresa</h2>
+        <h2>BrainCart</h2>
         <p>Sua frase ou slogan aqui</p>
       </div>
       
@@ -40,7 +40,7 @@ const Footer = () => {
     </div>
     
     <div className="footer-bottom">
-      <p>&copy; 2025 Nome da Empresa. Todos os direitos reservados.</p>
+      <p>&copy; 2025 BrainCart. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>

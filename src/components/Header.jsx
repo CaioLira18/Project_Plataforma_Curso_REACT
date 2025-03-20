@@ -48,7 +48,7 @@ const Header = ({ searchTerm, setSearchTerm, handleLogout }) => {
         <div>
             <header className="header">
                 <div className="nav-left">
-                    <div className="logo">Cursos</div>
+                    <div className="logo">BrainCart</div>
                     <div className="explore-btn">Explore</div>
                 </div>
                 

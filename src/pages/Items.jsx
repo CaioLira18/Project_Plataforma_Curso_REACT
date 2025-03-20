@@ -78,22 +78,6 @@ const Items = () => {
         <h2 className="text_nome">{item.bio}</h2>
         <h1 className="text_title">{item.price}</h1>
 
-        <div className="quantity-selector" style={{ marginBottom: "15px" }}>
-          <button 
-            onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-            style={{ padding: "5px 10px", background: "#f0f0f0", border: "1px solid #ddd" }}
-          >
-            -
-          </button>
-          <span style={{ margin: "0 10px" }}>{quantity}</span>
-          <button 
-            onClick={() => setQuantity(prev => prev + 1)}
-            style={{ padding: "5px 10px", background: "#f0f0f0", border: "1px solid #ddd" }}
-          >
-            +
-          </button>
-        </div>
-
         <button 
           className="button_buy" 
           onClick={() => { addToCart(); cont_increment(); }} 

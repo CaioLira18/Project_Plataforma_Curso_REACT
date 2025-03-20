@@ -544,7 +544,7 @@ button:focus-visible {
 }
 
 .single-item__texts h1 {
-  font-size: 35px;
+  font-size: 25px;
 }
 
 .single-item__2lines {
@@ -815,11 +815,19 @@ button:focus-visible {
   color: #000;
 }
 
-.item-text .text_nome {
+.item-text {
   font-size: 18px;
+  text-align: center;
+  margin-left: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.item-text h2{
+  font-size: 17px;
   text-align: left;
   margin-left: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
 }
 
 .item-text .text_bio {
