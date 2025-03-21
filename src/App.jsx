@@ -3,17 +3,17 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import './App.css'
-import Home from './pages/Home';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Login from './components/Login';
-import Profile from './components/Profile';
-import Item from './pages/Item';
-import Items from './pages/Items';
-import Checkout from './components/Checkout';
-import OrderConfirmation from './pages/OrderConfirmation';
-import Biblioteca from './components/Biblioteca';
-import Cursos from './pages/Cursos';
+import Home from './pages/Home.jsx';
+import Footer from './components/Footer.jsx';
+import Header from './components/Header.sx';
+import Login from './components/Login.jsx';
+import Profile from './components/Profile.jsx';
+import Item from './pages/Item.jsx';
+import Items from './pages/Items.jsx';
+import Checkout from './components/Checkout.jsx';
+import OrderConfirmation from './pages/OrderConfirmation.jsx';
+import Biblioteca from './components/Biblioteca.jsx';
+import Cursos from './pages/Cursos.jsx';
 
 const App = () => {
   const [count, setCount] = useState(0);
