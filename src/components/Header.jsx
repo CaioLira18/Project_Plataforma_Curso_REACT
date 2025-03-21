@@ -52,46 +52,35 @@ const Header = ({ searchTerm, setSearchTerm, handleLogout }) => {
                     <div className="explore-btn">Explore</div>
                 </div>
                 
-                <div className="search-container">
-                    <span className="search-icon">🔍</span>
-                    <input 
-                        type="text" 
-                        className="search-box" 
-                        placeholder="Search for anything" 
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                    />
-                </div>
-                
                 <div className="nav-right">
                     <a href="/"><span>Home</span></a>
                     <a href="/"><span>Categorias</span></a>
                     <a href="/biblioteca"><span>Minha Biblioteca</span></a>
                     <a href="/checkout"><span className="shopping-cart">🛒Carrinho</span></a>
+                    
                     {!isAuthenticated ? (
-                    <a className="cta" href="/Profile" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                    <a className="cta" href="/Profile">
                         <User />
-                        Login
+                        <span>Login</span>
                     </a>
-                ) : (
-                    <div className="user-section" style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                    <a className="cta" href="/Profile" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                    ) : (
+                    <div className="user-section">
+                        <a className="cta" href="/Profile">
                         <User />
-                        {userEmail.split('@')[0]}
-                    </a>
-                    <button 
-                        className="cta logout-btn" 
+                        <span>{userEmail.split('@')[0]}</span>
+                        </a>
+                        <button
+                        className="cta logout-btn"
                         onClick={() => {
                             localStorage.removeItem("user");
                             window.location.href = "/";
                         }}
-                        style={{ display: "flex", alignItems: "center", gap: "5px", cursor: "pointer", border: "none" }}
-                    >
+                        >
                         <LogOut />
-                        Sair
-                    </button>
-                </div>
-                )}
+                        <span>Sair</span>
+                        </button>
+                    </div>
+                    )}
                 </div>
             </header>
         </div>
