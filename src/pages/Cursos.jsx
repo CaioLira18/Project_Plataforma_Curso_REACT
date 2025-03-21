@@ -5,13 +5,14 @@ import { courseSections } from "../assets/database/courseSections";
 
 const Cursos = ({ searchTerm }) => {
     const navigate = useNavigate();
-    const { courseId } = useParams(); // Get courseId from URL parameters
+    const { courseId } = useParams();
     const [userEmail, setUserEmail] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [purchasedCourses, setPurchasedCourses] = useState([]);
     const [activeCourse, setActiveCourse] = useState(null);
     const [activeTab, setActiveTab] = useState("overview");
     const [expandedSection, setExpandedSection] = useState(null);
+    const [activeLesson, setActiveLesson] = useState(null);
     
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -24,12 +25,17 @@ const Cursos = ({ searchTerm }) => {
                 if (parsedUser.authenticated) {
                     loadPurchasedCourses(parsedUser.email);
                     
-                    // If courseId is provided in URL, find and set that course as active
                     if (courseId) {
-                        // Convert courseId to the same type for comparison (both as string or both as number)
                         const selectedCourse = cursosArray.find(course => course.id.toString() === courseId.toString());
                         if (selectedCourse) {
                             setActiveCourse(selectedCourse);
+                            
+                            // Selecionar a primeira lição do curso como ativa por padrão
+                            const sections = getCourseSections(selectedCourse.id);
+                            if (sections.length > 0 && sections[0].lessons.length > 0) {
+                                setActiveLesson(sections[0].lessons[0]);
+                                setExpandedSection(sections[0].id);
+                            }
                         } else {
                             console.error("Course with ID", courseId, "not found");
                         }
@@ -41,7 +47,7 @@ const Cursos = ({ searchTerm }) => {
                 console.error("Erro ao carregar dados do usuário:", error);
             }
         }
-    }, [courseId]); // Add courseId as dependency to react to URL changes
+    }, [courseId]);
     
     const loadPurchasedCourses = (email) => {
         try {
@@ -75,8 +81,18 @@ const Cursos = ({ searchTerm }) => {
 
     const selectCourse = (course) => {
         setActiveCourse(course);
-        // Update URL when selecting a course without full navigation
         navigate(`/curso/${course.id}`, { replace: true });
+        
+        // Selecionar a primeira lição do curso como ativa por padrão
+        const sections = getCourseSections(course.id);
+        if (sections.length > 0 && sections[0].lessons.length > 0) {
+            setActiveLesson(sections[0].lessons[0]);
+            setExpandedSection(sections[0].id);
+        }
+    };
+    
+    const selectLesson = (lesson) => {
+        setActiveLesson(lesson);
     };
 
     if (!isAuthenticated) {
@@ -91,11 +107,9 @@ const Cursos = ({ searchTerm }) => {
         );
     }
 
-    // Get sections for the active course - ensure consistent type comparison
     const getCourseSections = (courseId) => {
         if (!courseId) return [];
         
-        // Convert both IDs to strings for comparison
         return courseSections.filter(section => 
             section.courseId?.toString() === courseId.toString() || 
             section.id?.toString() === courseId.toString()
@@ -137,7 +151,6 @@ const Cursos = ({ searchTerm }) => {
                         className="back-button"
                         onClick={() => {
                             setActiveCourse(null);
-                            // Update URL when going back to course list
                             navigate('/biblioteca', { replace: true });
                         }}
                     >
@@ -172,20 +185,33 @@ const Cursos = ({ searchTerm }) => {
                     <div className="course-content">
                         <div className="content-main">
                             <div className="video-container">
-                                <iframe 
-                                    className="video-player"
-                                    src={activeCourse.videoUrl}
-                                    title="Video Player"
-                                    frameBorder="0"
-                                    allowFullScreen
-                                ></iframe>
+                                {activeLesson && activeLesson.videoUrl ? (
+                                    <video 
+                                        className="video-player"
+                                        src={activeLesson.videoUrl}
+                                        controls
+                                        autoPlay={false}
+                                        controlsList="nodownload"
+                                    ></video>
+                                ) : (
+                                    <div className="no-video-message">
+                                        Selecione uma lição com vídeo para assistir
+                                    </div>
+                                )}
                             </div>
+                            {activeLesson && (
+                                <div className="active-lesson-info">
+                                    <h2>{activeLesson.title}</h2>
+                                    <p className="lesson_bio">{activeLesson.lesson_bio}</p>
+                                    <p>Duração: {activeLesson.duration}</p>
+                                </div>
+                            )}
                         </div>
                         <div className="content-sidebar">
                             <div className="progress-container">
-                                <div className="progress-title">Seu progresso: 25% completo</div>
+                                <div className="progress-title">Seu progresso: 0% completo</div>
                                 <div className="progress-bar">
-                                    <div className="progress-fill" style={{ width: "25%" }}></div>
+                                    <div className="progress-fill" style={{ width: "0" }}></div>
                                 </div>
                             </div>
                             <div className="sections-container">
@@ -201,12 +227,17 @@ const Cursos = ({ searchTerm }) => {
                                         {expandedSection === section.id && (
                                             <div className="section-content">
                                                 {section.lessons.map(lesson => (
-                                                    <div key={lesson.id} className="lesson-item">
+                                                    <div 
+                                                        key={lesson.id} 
+                                                        className={`lesson-item ${activeLesson?.id === lesson.id ? 'active-lesson' : ''}`}
+                                                        onClick={() => selectLesson(lesson)}
+                                                    >
                                                         <input 
                                                             type="checkbox" 
                                                             className="lesson-checkbox" 
                                                             checked={lesson.completed} 
                                                             readOnly 
+                                                            onClick={(e) => e.stopPropagation()}
                                                         />
                                                         <span className="lesson-title">{lesson.title}</span>
                                                         <span className="lesson-duration">{lesson.duration}</span>

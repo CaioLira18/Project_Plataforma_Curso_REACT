@@ -473,7 +473,7 @@ button:focus-visible {
   border: 1px solid rgb(104, 104, 104);
   margin-top: 40px;
   padding: 35px;
-  margin-left: 30px;
+  margin-left: 80px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1377,6 +1377,75 @@ option {
   border-width: 15px 0 15px 25px;
   border-color: transparent transparent transparent white;
   margin-left: 5px;
+}
+
+/* Player de vídeo */
+.video-container {
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+  margin-bottom: 20px;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #000;
+}
+
+.no-video-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Informações da lição ativa */
+.active-lesson-info {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.active-lesson-info h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #333;
+}
+
+.active-lesson-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Destaque para lição ativa */
+.lesson-item.active-lesson {
+  background-color: #f0ebfa;
+  border-left: 3px solid #5624d0;
+}
+
+.lesson_bio {
+  font-weight: 600;
+}
+
+/* Cursor pointer para lições clicáveis */
+.lesson-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.lesson-item:hover {
+  background-color: #f5f5f5;
 }
 
 /* Course info */

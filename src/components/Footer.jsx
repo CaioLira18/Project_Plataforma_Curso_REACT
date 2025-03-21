@@ -8,7 +8,7 @@ const Footer = () => {
     <div className="footer-content">
       <div className="footer-logo">
         <h2>BrainCart</h2>
-        <p>Sua frase ou slogan aqui</p>
+        <p>Aprenda no seu ritmo, evolua sem limites.</p>
       </div>
       
       <div className="footer-links">
@@ -23,8 +23,8 @@ const Footer = () => {
       
       <div className="footer-contact">
         <h3>Contato</h3>
-        <p>Email: contato@empresa.com</p>
-        <p>Telefone: (11) 1234-5678</p>
+        <p>Email: BrainCart@empresa.com</p>
+        <p>Telefone: (81) 1234-5678</p>
         <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
       </div>
       
