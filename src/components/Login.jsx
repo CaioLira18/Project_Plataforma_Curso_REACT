@@ -4,8 +4,8 @@ import * as yup from "yup";
 import Axios from "axios";
 import Profile from "./Profile";
 
-// URL do backend no Railway
-const API_URL = "https://projectplataformacursoreact-production.up.railway.app/";
+// API_URL aponta para o mesmo domínio do deploy
+const API_URL = "/";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -15,7 +15,7 @@ const Login = () => {
   });
 
   const handleClickRegister = (values) => {
-    Axios.post(`${API_URL}/register`, {
+    Axios.post(`${API_URL}register`, {
       email: values.email,
       password: values.password,
     })
@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   const handleClickLogin = (values) => {
-    Axios.post(`${API_URL}/login`, {
+    Axios.post(`${API_URL}login`, {
       email: values.email,
       password: values.password,
     })
