@@ -15,7 +15,7 @@ const Login = () => {
   });
 
   const handleClickRegister = (values) => {
-    Axios.post(`${API_URL}register`, {
+    Axios.post(`${API_URL}login`, {
       email: values.email,
       password: values.password,
     })
