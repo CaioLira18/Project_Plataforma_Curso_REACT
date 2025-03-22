@@ -67,6 +67,6 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.listen(3100, () => {
+app.listen(3100, '0.0.0.0', () => {
     console.log("Rodando na porta 3100");
 });
