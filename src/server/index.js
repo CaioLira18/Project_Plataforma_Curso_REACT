@@ -6,10 +6,10 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: "maglev.proxy.rlwy.net",
+    user: "root",
+    password: "kZPgWcyNywfrtQeyPgIMesNOFCunhfIY",
+    database: "cursos",
 });
 
 app.use(express.json());
@@ -67,7 +67,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3100;
+const PORT = process.env.PORT || 34645;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Rodando na porta ${PORT}`);
 });
