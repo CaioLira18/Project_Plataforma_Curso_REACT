@@ -4,7 +4,7 @@ import * as yup from "yup";
 import Axios from "axios";
 import Profile from "./Profile";
 
-// Corrigido: Adicionada a barra `/` na URL da API
+// API_URL aponta para o mesmo domínio do deploy
 const API_URL = "https://projectplataformacursoreact-production.up.railway.app";
 
 const Login = () => {
@@ -15,70 +15,75 @@ const Login = () => {
   });
 
   const handleClickRegister = (values) => {
-    console.log("Enviando dados de registro:", values);
-    Axios.post(`${API_URL}/register`, {
+    Axios.post(`${API_URL}register`, {
       email: values.email,
       password: values.password,
     })
-    .then((response) => {
-      console.log("Resposta do servidor (registro):", response.data);
-      alert(response.data.msg);
-      
-      if (response.data.success) {
-        document.getElementById('register-form').style.display = 'none';
-      }
-    })
-    .catch((error) => {
-      console.error("Erro ao registrar:", error);
-      alert("Erro ao registrar usuário: " + (error.response?.data?.msg || error.message));
-    });
+      .then((response) => {
+        alert(response.data.msg);
+      })
+      .catch((error) => {
+        console.error("Erro ao registrar:", error);
+        alert("Erro ao registrar usuário");
+      });
   };
 
   const handleClickLogin = (values) => {
-    Axios.post(`${API_URL}/login`, {
+    Axios.post(`${API_URL}login`, {
       email: values.email,
       password: values.password,
     })
-    .then((response) => {
-      console.log("Resposta do servidor:", response);
+      .then((response) => {
+        console.log("Resposta do servidor:", response);
 
-      if (response.data.success) {
-        const userData = {
-          email: values.email,
-          authenticated: true,
-        };
+        if (response.data.success) {
+          const userData = {
+            email: values.email,
+            authenticated: true,
+          };
 
-        localStorage.setItem("user", JSON.stringify(userData));
-        window.dispatchEvent(new Event("storage"));
+          console.log("Salvando usuário no localStorage:", userData);
+          localStorage.setItem("user", JSON.stringify(userData));
 
-        setUser({ ...userData, password: "" });
-        alert("Login realizado com sucesso!");
-      } else {
-        alert(response.data.msg || "Credenciais inválidas");
-      }
-    })
-    .catch((error) => {
-      console.error("Erro ao fazer login:", error);
-      alert("Erro ao fazer login");
-    });
+          window.dispatchEvent(new Event("storage"));
+
+          setUser({
+            email: values.email,
+            password: values.password,
+            authenticated: true,
+          });
+
+          alert("Login realizado com sucesso!");
+        } else {
+          alert(response.data.msg || "Credenciais inválidas");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro ao fazer login:", error);
+        alert("Erro ao fazer login");
+      });
   };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      setUser({
+        ...parsedUser,
+        password: "",
+      });
     }
   }, []);
 
   const validationLogin = yup.object().shape({
-    email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
+    email: yup.string().email("Não é um email válido").required("Esse campo é obrigatório"),
+    password: yup.string().min(8, "A senha deve conter no mínimo 8 caracteres").required("Esse campo é obrigatório"),
   });
 
   const validationRegister = yup.object().shape({
-    email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
-    confirmPassword: yup.string().oneOf([yup.ref("password"), null], "As senhas devem ser iguais").required("Campo obrigatório"),
+    email: yup.string().email("Não é um email válido").required("Esse campo é obrigatório"),
+    password: yup.string().min(8, "A senha deve conter no mínimo 8 caracteres").required("Esse campo é obrigatório"),
+    confirmPassword: yup.string().oneOf([yup.ref("password"), null], "As senhas devem ser iguais").required("Esse campo é obrigatório"),
   });
 
   if (user.authenticated) {
@@ -92,7 +97,6 @@ const Login = () => {
           <i className="fas fa-user"></i>
         </div>
 
-        {/* Formulário de Login */}
         <Formik initialValues={{}} onSubmit={handleClickLogin} validationSchema={validationLogin}>
           <Form className="login-form">
             <div className="login-form-group">
@@ -103,34 +107,33 @@ const Login = () => {
 
             <div className="login-form-group">
               <i className="fas fa-lock"></i>
-              <Field type="password" name="password" className="form-field" placeholder="Senha" />
+              <Field type="password" name="password" className="form-field" placeholder="Password" />
               <ErrorMessage component="span" name="password" className="form-error" />
             </div>
 
             <div className="remember-forgot">
               <label>
-                <input type="checkbox" /> Lembrar-me
+                <input type="checkbox" /> Remember me
               </label>
               <a href="#" className="forgot-link">
-                Esqueceu a senha?
+                Forgot Password?
               </a>
             </div>
 
             <button className="login-button" type="submit">
-              ENTRAR
+              LOGIN
             </button>
           </Form>
         </Formik>
 
         <div className="register-link">
           <button className="register-button" onClick={() => document.getElementById("register-form").style.display = "block"}>
-            REGISTRAR
+            REGISTER
           </button>
         </div>
 
-        {/* Formulário de Registro */}
         <div id="register-form" style={{ display: "none" }}>
-          <h2>Registrar</h2>
+          <h2>Register</h2>
           <Formik initialValues={{}} onSubmit={handleClickRegister} validationSchema={validationRegister}>
             <Form className="login-form">
               <div className="login-form-group">
@@ -141,18 +144,18 @@ const Login = () => {
 
               <div className="login-form-group">
                 <i className="fas fa-lock"></i>
-                <Field type="password" name="password" className="form-field" placeholder="Senha" />
+                <Field type="password" name="password" className="form-field" placeholder="Password" />
                 <ErrorMessage component="span" name="password" className="form-error" />
               </div>
 
               <div className="login-form-group">
                 <i className="fas fa-lock"></i>
-                <Field type="password" name="confirmPassword" className="form-field" placeholder="Confirmar Senha" />
+                <Field type="password" name="confirmPassword" className="form-field" placeholder="Confirm Password" />
                 <ErrorMessage component="span" name="confirmPassword" className="form-error" />
               </div>
 
               <button className="login-button" type="submit">
-                REGISTRAR
+                REGISTER
               </button>
             </Form>
           </Formik>

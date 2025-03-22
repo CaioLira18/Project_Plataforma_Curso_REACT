@@ -5,7 +5,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// Separate the database port from the application port
+// Configuração do banco de dados
 const db = mysql.createPool({
     host: "maglev.proxy.rlwy.net",
     port: 43183, 
@@ -16,116 +16,112 @@ const db = mysql.createPool({
     queueLimit: 0
 });
 
-// Add more debugging for connection issues
+// Verificar conexão com o banco de dados
 db.getConnection((err, connection) => {
     if (err) {
-        console.error("Error connecting to database:", err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            console.error('Database connection was closed.');
-        }
-        if (err.code === 'ER_CON_COUNT_ERROR') {
-            console.error('Database has too many connections.');
-        }
-        if (err.code === 'ECONNREFUSED') {
-            console.error('Database connection was refused.');
-        }
-        if (err.code === 'ETIMEDOUT') {
-            console.error('Database connection timed out.');
-        }
+        console.error("Erro ao conectar no banco de dados:", err);
     } else {
-        console.log("Successfully connected to database");
+        console.log("Conexão com o banco de dados estabelecida.");
         connection.release();
     }
 });
 
-// Enable CORS with more options
+// Configuração do servidor
 app.use(cors({
-    origin: '*', // Allow all origins for testing
+    origin: '*',
     methods: ['GET', 'POST'],
     credentials: true
 }));
 app.use(express.json());
 
-// Add error handling middleware
+// Middleware para tratamento de erros
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send({ error: 'Something broke!', details: err.message });
+    res.status(500).send({ error: 'Erro no servidor', details: err.message });
 });
 
+// Criar a tabela se não existir
+db.query(`CREATE TABLE IF NOT EXISTS Usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+)`, (err) => {
+    if (err) console.error("Erro ao criar tabela:", err);
+});
+
+// Rota de registro
 app.post("/register", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    
-    db.query("SELECT * FROM Usuarios WHERE email = ?", [email], (err, result) => {
-        if(err){
-            console.error("Error checking existing user:", err);
-            return res.status(500).send({error: err.message});
-        }
-        if(result.length == 0){
-            bcrypt.hash(password, saltRounds, (err, hash) => {
-                if (err) {
-                    console.error("Error hashing password:", err);
-                    return res.status(500).send({error: err.message});
-                }
-                
-                db.query("INSERT INTO Usuarios (email, password) VALUES (?, ?)", [email, hash], (err, response) => {
-                    if(err){
-                        console.error("Error inserting user:", err);
-                        return res.status(500).send({error: err.message});
-                    }
-                    
-                    res.send({msg: "Cadastrado com Sucesso", success: true});
-                });
-            });
-        } else {
-            res.send({msg: "Usuario ja cadastrado", success: false});
-        }
-    });
-});
+    const { email, password } = req.body;
 
-app.get("/test-connection", (req, res) => {
-    db.query("SELECT 1", (err, result) => {
-        if (err) {
-            console.error("Erro na conexão:", err);
-            return res.status(500).send({error: "Erro na conexão com o banco de dados", details: err});
-        }
-        res.send({success: true, message: "Conexão com o banco de dados funcionando"});
-    });
-});
-
-app.post("/login", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    
-    console.log("Login attempt for:", email);
-    
     db.query("SELECT * FROM Usuarios WHERE email = ?", [email], (err, result) => {
         if (err) {
-            console.error("Error finding user:", err);
-            return res.status(500).send({error: err.message});
+            console.error("Erro ao verificar usuário existente:", err);
+            return res.status(500).send({ error: err.message });
         }
-        
         if (result.length > 0) {
-            bcrypt.compare(password, result[0].password, (err, match) => {
-                if (err) {
-                    console.error("Error comparing passwords:", err);
-                    return res.status(500).send({ msg: "Erro ao verificar senha", error: err.message });
-                }
-                
-                if (match) {
-                    return res.status(200).send({ msg: "Usuario logado com sucesso", success: true });
-                } else {
-                    return res.status(401).send({ msg: "Senha incorreta", success: false });
-                }
-            });
-        } else {
-            return res.status(404).send({ msg: "Usuario não encontrado", success: false });
+            return res.send({ msg: "Usuário já cadastrado", success: false });
         }
+
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+            if (err) {
+                console.error("Erro ao gerar hash da senha:", err);
+                return res.status(500).send({ error: err.message });
+            }
+
+            db.query("INSERT INTO Usuarios (email, password) VALUES (?, ?)", [email, hash], (err) => {
+                if (err) {
+                    console.error("Erro ao cadastrar usuário:", err);
+                    return res.status(500).send({ error: err.message });
+                }
+
+                res.send({ msg: "Cadastro realizado com sucesso!", success: true });
+            });
+        });
     });
 });
 
-// Choose a different port for your application
-const PORT = process.env.PORT || 43183;
+// Rota de login
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    db.query("SELECT * FROM Usuarios WHERE email = ?", [email], (err, result) => {
+        if (err) {
+            console.error("Erro ao buscar usuário:", err);
+            return res.status(500).send({ error: err.message });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).send({ msg: "Usuário não encontrado", success: false });
+        }
+
+        bcrypt.compare(password, result[0].password, (err, match) => {
+            if (err) {
+                console.error("Erro ao comparar senhas:", err);
+                return res.status(500).send({ msg: "Erro ao verificar senha", error: err.message });
+            }
+
+            if (match) {
+                return res.status(200).send({ msg: "Login realizado com sucesso!", success: true });
+            } else {
+                return res.status(401).send({ msg: "Senha incorreta", success: false });
+            }
+        });
+    });
+});
+
+// Verificação de conexão com o banco
+app.get("/test-connection", (req, res) => {
+    db.query("SELECT 1", (err) => {
+        if (err) {
+            console.error("Erro na conexão com o banco de dados:", err);
+            return res.status(500).send({ error: "Erro ao conectar", details: err });
+        }
+        res.send({ success: true, message: "Conexão com o banco de dados funcionando!" });
+    });
+});
+
+// Configuração da porta do servidor
+const PORT = process.env.PORT || 28401;
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Rodando na porta ${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
