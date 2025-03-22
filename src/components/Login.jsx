@@ -15,7 +15,7 @@ const Login = () => {
   });
 
   const handleClickRegister = (values) => {
-    Axios.post(`${API_URL}login`, {
+    Axios.post(`${API_URL}/register`, {
       email: values.email,
       password: values.password,
     })
@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   const handleClickLogin = (values) => {
-    Axios.post(`${API_URL}login`, {
+    Axios.post(`${API_URL}/login`, {
       email: values.email,
       password: values.password,
     })
