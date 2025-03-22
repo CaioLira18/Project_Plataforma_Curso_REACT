@@ -13,7 +13,7 @@ const Login = () => {
   });
 
   const handleClickRegister = (values) => {
-    Axios.post("http://localhost:34645/register", {
+    Axios.post("http://localhost:43183/register", {
       email: values.email,
       password: values.password,
     }).then((response) => {
@@ -26,7 +26,7 @@ const Login = () => {
 
   // Adicione este código dentro da função handleClickLogin no componente Login
 const handleClickLogin = (values) => {
-  Axios.post("http://localhost:34645/login", {
+  Axios.post("http://localhost:43183/login", {
     email: values.email,
     password: values.password,
   }).then((response) => {
