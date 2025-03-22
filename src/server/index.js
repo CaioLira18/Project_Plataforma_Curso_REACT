@@ -67,6 +67,8 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.listen(3100, '0.0.0.0', () => {
-    console.log("Rodando na porta 3100");
+const PORT = process.env.PORT || 3100;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Rodando na porta ${PORT}`);
 });
+
