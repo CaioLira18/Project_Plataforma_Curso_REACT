@@ -43,6 +43,9 @@ db.query(`CREATE TABLE IF NOT EXISTS Usuarios (
 
 // Rota de registro
 app.post("/register", (req, res) => {
+    console.log("📥 Rota /register foi chamada!");
+    console.log("📩 Dados recebidos:", req.body);
+    
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ msg: "Email e senha obrigatórios!", success: false });
 
@@ -61,6 +64,7 @@ app.post("/register", (req, res) => {
         });
     });
 });
+
 
 // Rota de login
 app.post("/login", (req, res) => {
