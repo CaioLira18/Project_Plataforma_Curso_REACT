@@ -7,11 +7,15 @@ require("dotenv").config();
 const app = express();
 const saltRounds = 10;
 
-// Middleware para aceitar JSON
 app.use(express.json());
-app.use(cors({ origin: "*", methods: ["GET", "POST", "OPTIONS"], allowedHeaders: ["Content-Type"] }));
 
-// Configuração do banco de dados usando variáveis de ambiente
+// Corrigido: CORS configurado corretamente para acesso externo
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"]
+}));
+
 const db = mysql.createPool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -22,7 +26,6 @@ const db = mysql.createPool({
     queueLimit: 0
 });
 
-// Teste de conexão com o banco
 db.getConnection((err, connection) => {
     if (err) {
         console.error("❌ Erro ao conectar no banco de dados:", err);
@@ -32,7 +35,6 @@ db.getConnection((err, connection) => {
     }
 });
 
-// Criar tabela se não existir
 db.query(`CREATE TABLE IF NOT EXISTS Usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -41,11 +43,7 @@ db.query(`CREATE TABLE IF NOT EXISTS Usuarios (
     if (err) console.error("❌ Erro ao criar tabela:", err);
 });
 
-// Rota de registro
 app.post("/register", (req, res) => {
-    console.log("📥 Rota /register foi chamada!");
-    console.log("📩 Dados recebidos:", req.body);
-    
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ msg: "Email e senha obrigatórios!", success: false });
 
@@ -65,8 +63,6 @@ app.post("/register", (req, res) => {
     });
 });
 
-
-// Rota de login
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ msg: "Email e senha obrigatórios!", success: false });
@@ -84,17 +80,5 @@ app.post("/login", (req, res) => {
     });
 });
 
-// Verificação de conexão com o banco
-app.get("/test-connection", (req, res) => {
-    db.query("SELECT 1", (err) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ success: true, message: "✅ Conexão com o banco de dados funcionando!" });
-    });
-});
-
-// Erro 404 para rotas inválidas
-app.use((req, res) => res.status(404).json({ msg: "Rota não encontrada!", success: false }));
-
-// Iniciar o servidor
 const PORT = process.env.PORT || 43183;
-app.listen(PORT, "0.0.0.0", () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
