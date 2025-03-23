@@ -17,7 +17,7 @@ const Login = () => {
 
   const handleClickRegister = async (values) => {
     try {
-      const response = await Axios.post(`${API_URL}/register`, values);
+      const response = await Axios.post("http://localhost:8080/register", values);
       alert(response.data.msg);
       if (response.data.success) {
         document.getElementById("register-form").style.display = "none";
@@ -30,7 +30,7 @@ const Login = () => {
 
   const handleClickLogin = async (values) => {
     try {
-      const response = await Axios.post(`${API_URL}/login`, values);
+      const response = await Axios.post("http://localhost:8080/login", values);
       if (response.data.success) {
         const loggedUser = { email: values.email, authenticated: true };
         localStorage.setItem("user", JSON.stringify(loggedUser));
