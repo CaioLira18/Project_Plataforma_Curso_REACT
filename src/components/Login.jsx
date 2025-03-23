@@ -5,8 +5,7 @@ import Axios from "axios";
 import Profile from "./Profile";
 
 // URL da API para o Railway
-const VITE_API_URL = "http://localhost:8080";
-const API_URL = VITE_API_URL || "https://testserver-production-eca2.up.railway.app/";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -17,7 +16,7 @@ const Login = () => {
 
   const handleClickRegister = async (values) => {
     try {
-      const response = await Axios.post("http://localhost:8080/register", values);
+      const response = await Axios.post(`${API_URL}/register`, values);
       alert(response.data.msg);
       if (response.data.success) {
         document.getElementById("register-form").style.display = "none";
@@ -30,7 +29,7 @@ const Login = () => {
 
   const handleClickLogin = async (values) => {
     try {
-      const response = await Axios.post("http://localhost:8080/login", values);
+      const response = await Axios.post(`${API_URL}/login`, values);
       if (response.data.success) {
         const loggedUser = { email: values.email, authenticated: true };
         localStorage.setItem("user", JSON.stringify(loggedUser));
