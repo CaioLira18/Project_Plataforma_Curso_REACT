@@ -5,7 +5,7 @@ import Axios from "axios";
 import Profile from "./Profile";
 
 // Corrigido: Adicionada a barra `/` na URL da API
-const API_URL = "http://localhost:28401";
+const API_URL = "http://localhost:43183";
 
 
 const Login = () => {
