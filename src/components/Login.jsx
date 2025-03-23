@@ -5,7 +5,8 @@ import Axios from "axios";
 import Profile from "./Profile";
 
 // Corrigido: Adicionada a barra `/` na URL da API
-const API_URL = "https://projectplataformacursoreact-production.up.railway.app";
+const API_URL = "http://localhost:28401";
+
 
 const Login = () => {
   const [user, setUser] = useState({
