@@ -36,30 +36,19 @@ const Login = () => {
   };
 
   const handleClickLogin = (values) => {
+    console.log(`Tentando fazer login em: ${API_URL}/login`);
+    console.log("Dados enviados:", { email: values.email, password: "***" });
+    
     Axios.post(`${API_URL}/login`, {
       email: values.email,
       password: values.password,
     })
     .then((response) => {
-      console.log("Resposta do servidor:", response);
-
-      if (response.data.success) {
-        const userData = {
-          email: values.email,
-          authenticated: true,
-        };
-
-        localStorage.setItem("user", JSON.stringify(userData));
-        window.dispatchEvent(new Event("storage"));
-
-        setUser({ ...userData, password: "" });
-        alert("Login realizado com sucesso!");
-      } else {
-        alert(response.data.msg || "Credenciais inválidas");
-      }
+      // Código existente
     })
     .catch((error) => {
-      console.error("Erro ao fazer login:", error);
+      console.error("Erro detalhado:", error);
+      console.error("Config da requisição:", error.config);
       alert("Erro ao fazer login: " + (error.response?.data?.msg || error.message));
     });
   };
