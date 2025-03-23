@@ -44,7 +44,18 @@ const Login = () => {
       password: values.password,
     })
     .then((response) => {
-      // Código existente
+      console.log("Resposta do servidor (login):", response.data);
+      if (response.data.success) {
+        const loggedUser = {
+          email: values.email,
+          authenticated: true
+        };
+        localStorage.setItem("user", JSON.stringify(loggedUser));
+        setUser(loggedUser);
+        alert(response.data.msg);
+      } else {
+        alert(response.data.msg || "Erro ao fazer login");
+      }
     })
     .catch((error) => {
       console.error("Erro detalhado:", error);
