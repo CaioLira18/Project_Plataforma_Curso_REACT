@@ -6,7 +6,7 @@ import Profile from "./Profile";
 
 // URL da API para o Railway
 // Substitua pela URL pública do seu serviço no Railway
-const API_URL = import.meta.env.VITE_API_URL || "https://projectplataformacursoreact-production.up.railway.app";
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 const Login = () => {
   const [user, setUser] = useState({
