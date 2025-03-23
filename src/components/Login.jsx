@@ -5,7 +5,7 @@ import Axios from "axios";
 import Profile from "./Profile";
 
 // URL da API para o Railway
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 const Login = () => {
   const [user, setUser] = useState({
